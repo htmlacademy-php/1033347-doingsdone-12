@@ -1,46 +1,8 @@
 <?php
-// показывать или нет выполненные задачи
-$show_complete_tasks = rand(0, 1);
-$projects = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
-$tasks = [
-    [
-        "title" => "Собеседование в IT компании",
-        "date" => "01.12.2019",
-        "category" => "Работа",
-        "status" => false,
-    ],
-    [
-        "title" => "Выполнить тестовое задание",
-        "date" => "25.12.2019",
-        "category" => "Работа",
-        "status" => false,
-    ],
-    [
-        "title" => "Сделать задание первого раздела",
-        "date" => "21.12.2019",
-        "category" => "Учеба",
-        "status" => true,
-    ],
-    [
-        "title" => "Встреча с другом",
-        "date" => "22.12.2019",
-        "category" => "Входящие",
-        "status" => false,
-    ],
-    [
-        "title" => "Купить корм для кота",
-        "date" => "null",
-        "category" => "Домашние дела",
-        "status" => false,
-    ],
-    [
-        "title" => "Заказать пиццу",
-        "date" => "null",
-        "category" => "Домашние дела",
-        "status" => false,
-    ],
-];
+require_once 'config/config.php';
+require_once 'functions/functions.php';
 
+$show_complete_tasks = rand(0, 1);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -85,7 +47,7 @@ $tasks = [
                         <?php foreach ($projects as $project): ?>
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"><?=$project; ?></a>
-                            <span class="main-navigation__list-item-count">0</span>
+                            <span class="main-navigation__list-item-count"><?=tasks_counter($tasks, $project); ?></span>
                         </li>
                         <?php endforeach; ?>
                     </ul>
