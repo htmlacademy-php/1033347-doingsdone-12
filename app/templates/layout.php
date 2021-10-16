@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($title); ?></title>
+    <title><?= htmlspecialchars($title) ?></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/flatpickr.min.css">
@@ -24,7 +24,7 @@
 
                 <div class="main-header__side-item user-menu">
                     <div class="user-menu__data">
-                        <p><?= htmlspecialchars($user_name); ?></p>
+                        <p><?= htmlspecialchars($user_name) ?></p>
 
                         <a href="#">Выйти</a>
                     </div>
@@ -33,7 +33,7 @@
         </header>
 
         <div class="content">
-            <?= $content; ?>
+            <?= $content ?>
         </div>
     </div>
 </div>

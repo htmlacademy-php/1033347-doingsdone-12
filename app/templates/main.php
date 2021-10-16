@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var array $projects
+ * @var array $tasks
+ */
+?>
+
 <section class="content__side">
     <h2 class="content__side-heading">Проекты</h2>
 
@@ -5,8 +12,8 @@
         <ul class="main-navigation__list">
             <?php foreach ($projects as $project): ?>
                 <li class="main-navigation__list-item">
-                    <a class="main-navigation__list-item-link" href="#"><?= htmlspecialchars($project); ?></a>
-                    <span class="main-navigation__list-item-count"><?= tasksСounter($tasks, $project); ?></span>
+                    <a class="main-navigation__list-item-link" href="#"><?= htmlspecialchars($project) ?></a>
+                    <span class="main-navigation__list-item-count"><?= taskCounter($tasks, $project) ?></span>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -37,7 +44,7 @@
             <!--добавить сюда атрибут "checked", если переменная $show_complete_tasks равна единице-->
             <input class="checkbox__input visually-hidden show_completed"
                    type="checkbox"
-                   <?php if ($show_complete_tasks === 1): ?>checked<?php endif; ?>
+                   <?= $show_complete_tasks === 1 ? 'checked' : '' ?>
             >
             <span class="checkbox__text">Показывать выполненные</span>
         </label>
@@ -46,11 +53,11 @@
     <table class="tasks">
         <?php foreach ($tasks as $task): ?>
             <?php if($task["status"] === true && $show_complete_tasks === 0){ continue; } ?>
-            <tr class="tasks__item task <?php if ($task["status"] === true): ?>task--completed"<?php endif; ?> <?php if (isHotTask($task["date"])): ?>task--important<?php endif; ?>">
+            <tr class="tasks__item task <?= $task['status'] ? 'task--completed' : '' ?> <?= isHotTask($task['date']) ? 'task--important' : '' ?>">
             <td class="task__select">
                 <label class="checkbox task__checkbox">
                     <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                    <span class="checkbox__text"><?= htmlspecialchars($task["title"]); ?></span>
+                    <span class="checkbox__text"><?= htmlspecialchars($task["title"]) ?></span>
                 </label>
             </td>
 
@@ -58,7 +65,7 @@
                 <a class="download-link" href="#">Home.psd</a>
             </td>
 
-            <td class="task__date"><?= htmlspecialchars($task["date"]); ?></td>
+            <td class="task__date"><?= htmlspecialchars($task["date"]) ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
