@@ -4,29 +4,29 @@ USE doingsdone;
 
 CREATE TABLE IF NOT EXISTS users
 (
-  id                INT AUTO_INCREMENT PRIMARY KEY,
-  registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  email             VARCHAR(128) UNIQUE NOT NULL,
-  user_login        VARCHAR(128) UNIQUE NOT NULL,
-  user_password     VARCHAR(255)        NOT NULL
+  id            INT AUTO_INCREMENT PRIMARY KEY,
+  registered_at DATETIME DEFAULT NOW(),
+  email         VARCHAR(320) UNIQUE NOT NULL,
+  login         VARCHAR(128) UNIQUE NOT NULL,
+  password      VARCHAR(255)        NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS projects
 (
-  id            INT AUTO_INCREMENT PRIMARY KEY,
-  project_title VARCHAR(128) UNIQUE NOT NULL,
-  user_id       INT                 NOT NULL,
+  id      INT AUTO_INCREMENT PRIMARY KEY,
+  title   VARCHAR(128) UNIQUE NOT NULL,
+  user_id INT                 NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE IF NOT EXISTS tasks
 (
   id            INT AUTO_INCREMENT PRIMARY KEY,
-  creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  status        BOOL      DEFAULT FALSE,
-  task_title    VARCHAR(128) NOT NULL,
+  created_at DATETIME DEFAULT NOW(),
+  status        BOOL     DEFAULT FALSE,
+  title         VARCHAR(128) NOT NULL,
   file_link     TEXT,
-  dead_line     TIMESTAMP DEFAULT 0,
+  deadline      DATETIME DEFAULT NULL,
   user_id       INT          NOT NULL,
   project_id    INT          NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id),
