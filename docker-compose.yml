@@ -1,0 +1,29 @@
+version: '3'
+services:
+    nginx:
+        image: nginx:latest
+        ports:
+            - "80:81"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - ./app:/app
+    php:
+        build:
+            context: .
+            dockerfile: PHP.Dockerfile
+        volumes:
+            - ./app:/app
+    mysql:
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_USER: 'master'
+            MYSQL_PASSWORD: 'master123'
+        command: --sql_mode=''
+        volumes:
+          - mysqldata:/var/lib/mysql
+        ports:
+          - 3306:3306
+volumes:
+    mysqldata: {}
