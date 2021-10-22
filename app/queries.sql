@@ -26,14 +26,14 @@ VALUES ('Обновить програмное обеспечение', false, 1
 
 -- List of projects for current user
 
-SELECT p.title, u.id
+SELECT p.title
 FROM projects AS p
        JOIN users AS u ON u.id = 1
   AND u.id = p.user_id;
 
--- List of tasks for current projects
+-- List of tasks for current project
 
-SELECT t.title, p.id
+SELECT t.title
 FROM tasks AS t
        JOIN projects AS p ON p.id = 5
   AND t.project_id = p.id;

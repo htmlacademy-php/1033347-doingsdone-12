@@ -1,4 +1,5 @@
 <?php
+require_once('config/config.php');
 require_once 'functions/functions.php';
 require_once 'functions/functions_db.php';
 require_once 'helpers.php';
@@ -6,8 +7,8 @@ require_once 'helpers.php';
 $title = 'Дела в порядке: главная';
 $user_name = 'Tony Stark';
 $show_complete_tasks = rand(0, 1);
-$projects = fetchProjects();
-$tasks = fetchTasks();
+$projects = fetchProjects($connection);
+$tasks = fetchTasks($connection);
 
 $content = include_template('main.php', [
     'projects' => $projects,

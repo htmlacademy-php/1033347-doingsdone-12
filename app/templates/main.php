@@ -53,7 +53,7 @@
     <table class="tasks">
         <?php foreach ($tasks as $task): ?>
             <?php if($task["status"] === true && $show_complete_tasks === 0){ continue; } ?>
-            <tr class="tasks__item task <?= $task['status'] ? 'task--completed' : '' ?> <?= isHotTask($task['date']) ? 'task--important' : '' ?>">
+            <tr class="tasks__item task <?= $task['status'] ? 'task--completed' : '' ?> <?= isHotTask($task['deadline']) ? 'task--important' : '' ?>">
             <td class="task__select">
                 <label class="checkbox task__checkbox">
                     <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
@@ -65,7 +65,7 @@
                 <a class="download-link" href="#">Home.psd</a>
             </td>
 
-            <td class="task__date"><?= htmlspecialchars($task["date"]) ?></td>
+            <td class="task__date"><?= htmlspecialchars($task['deadline']) ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

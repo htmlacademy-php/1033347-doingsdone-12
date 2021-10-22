@@ -3,7 +3,7 @@ function taskCounter($project_tasks, $project_title)
 {
     $result = 0;
     foreach ($project_tasks as $project_task) {
-        if ($project_task['category'] === $project_title) {
+        if ($project_task['title'] === $project_title) {
             $result++;
         }
     }

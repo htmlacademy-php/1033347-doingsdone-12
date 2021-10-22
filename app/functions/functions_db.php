@@ -1,59 +1,40 @@
 <?php
-require_once ('../config/config.php');
-require_once ('../config/settings.php');
+require_once('config/config.php');
 
-function dbConnect($db)
-{
-    $mysqli = new mysqli($db['host'], $db['user'], $db['password'], $db['database']);
+$mysqli = mysqli_connect($db['host'], $db['user'], $db['password'], $db['database']);
 
-    $mysqli -> set_charset('utf8');
+mysqli_set_charset($mysqli, 'utf8');
 
-    return $mysqli;
+if (!$mysqli) {
+    echo('Ошибка подключения к базе данных' . mysqli_connect_error());
+} else {
+    $connection = $mysqli;
 }
 
-function fetchProjects()
+function fetchProjects($connection)
 {
-    return ['Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
+    $sql = "SELECT p.title
+            FROM projects AS p
+            JOIN users AS u ON u.id = 1
+            AND u.id = p.user_id";
+
+    $query = mysqli_query($connection, $sql);
+
+    $fetch_result = mysqli_fetch_all($query, MYSQLI_ASSOC);
+
+    return array_map(function ($el) {
+        return $el['title'];
+    }, $fetch_result);
 }
 
-function fetchTasks()
+function fetchTasks($connection)
 {
-    return [
-        [
-            'title' => 'Собеседование в IT компании',
-            'date' => '20.10.2021',
-            'category' => 'Работа',
-            'status' => false,
-        ],
-        [
-            'title' => 'Выполнить тестовое задание',
-            'date' => '15.10.2021',
-            'category' => 'Работа',
-            'status' => false,
-        ],
-        [
-            'title' => 'Сделать задание первого раздела',
-            'date' => '20.10.2021',
-            'category' => 'Учеба',
-            'status' => true,
-        ],
-        [
-            'title' => 'Встреча с другом',
-            'date' => '20.10.2021',
-            'category' => 'Входящие',
-            'status' => false,
-        ],
-        [
-            'title' => 'Купить корм для кота',
-            'date' => null,
-            'category' => 'Домашние дела',
-            'status' => false,
-        ],
-        [
-            'title' => 'Заказать пиццу',
-            'date' => null,
-            'category' => 'Домашние дела',
-            'status' => false,
-        ],
-    ];
+    $sql = "SELECT t.title, t.deadline, t.status
+            FROM tasks AS t
+            JOIN projects AS p ON p.id = 1
+            AND t.project_id = p.id";
+
+    $query = mysqli_query($connection, $sql);
+
+    return mysqli_fetch_all($query, MYSQLI_ASSOC);
 }
